@@ -200,8 +200,11 @@ public class calculo extends javax.swing.JFrame {
         x = Integer.parseInt( txt_alt.getText()); //Mesclando o Campo com a variável
         y = Integer.parseInt( txt_peso.getText());
         
-        a = (y / 100) *2;        
+        a = (y * y ) / 100;    
+        
+        
         z = x / a; //operação
+        z = z * 100;
         
         if (z < 18.5) {
             r = String.valueOf(z);
