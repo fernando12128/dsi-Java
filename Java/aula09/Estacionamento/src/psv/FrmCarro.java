@@ -48,7 +48,7 @@ public class FrmCarro extends javax.swing.JFrame {
         btnLimpar = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tblConsulta = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -144,6 +144,11 @@ public class FrmCarro extends javax.swing.JFrame {
                 btnIncluirMouseClicked(evt);
             }
         });
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setText("Alterar");
         btnAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -217,26 +222,28 @@ public class FrmCarro extends javax.swing.JFrame {
 
         tblConsulta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Placa", "Cor", "Descrição"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblConsultaMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tblConsulta);
+        jScrollPane1.setViewportView(tblConsulta);
         if (tblConsulta.getColumnModel().getColumnCount() > 0) {
             tblConsulta.getColumnModel().getColumn(0).setResizable(false);
             tblConsulta.getColumnModel().getColumn(1).setResizable(false);
@@ -248,16 +255,15 @@ public class FrmCarro extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -334,25 +340,13 @@ public class FrmCarro extends javax.swing.JFrame {
                         int i = 0;
                         for(CarroBean cb : listaCarro){
                             tbm.addRow(new String[1]);
-                            tblConsulta.setValueAt(cb.getPlaca(), 1 , 0);
-                            tblConsulta.setValueAt(cb.getCor(), 1 , 0);
-                            tblConsulta.setValueAt(cb.getDescricao(), 1, 0);
+                            tblConsulta.setValueAt(cb.getPlaca(), i , 0);
+                            tblConsulta.setValueAt(cb.getCor(), i , 1);
+                            tblConsulta.setValueAt(cb.getDescricao(), i, 2);
                             i++;
                         }
                         Conexao.fecharConexao(con);
     }//GEN-LAST:event_btnPesquisarMouseClicked
-
-    private void tblConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblConsultaMouseClicked
-        Integer linha = tblConsulta.getSelectedRow();
-        String placa = (String)tblConsulta.getValueAt(linha, 0);
-        String cor = (String)tblConsulta.getValueAt(linha, 1);
-        String descricao = (String)tblConsulta.getValueAt(linha, 2);
-        
-        txtPlaca.setText(placa);
-        txtCor.setText(cor);
-        txtDescricao.setText(descricao);
-        
-    }//GEN-LAST:event_tblConsultaMouseClicked
 
     private void txtCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorActionPerformed
         // TODO add your handling code here:
@@ -384,6 +378,10 @@ public class FrmCarro extends javax.swing.JFrame {
                         }
                         Conexao.fecharConexao(con);
     }//GEN-LAST:event_btnExcluirMouseClicked
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIncluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -432,7 +430,7 @@ public class FrmCarro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCor;
     private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblMensagem;
