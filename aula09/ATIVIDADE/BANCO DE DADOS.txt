@@ -1,0 +1,7 @@
+como não consigo importar o banco fica o codigo para facilitar a criação dele
+
+create database estacionamento;
+
+use estacionamento;
+
+create table carro(placa char(8) not null primary key, cor varchar(20), descricao varchar(100), proprietario varchar(100), marca varchar(20), modelo varchar(20), torque varchar(15), tamanho varchar(20), chassi varchar(17), acentos varchar(5), Tipo varchar(8), Alugado varchar(3));
